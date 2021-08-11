@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>List view Display</title>
+</head>
+<body>
+	<center>
+		<h1>How to display</h1>
+		<hr/>
+		<ul>
+			{% for result in Ratings %}
+				<li>Field 0: {{result.items}}</li>
+				<li>Field 1: {{result.1}}</li>
+				<li>Field 2: {{result.2}}</li>
+				<li>Field 3: {{result.3}}</li>
+			{% endfor %}
+		</ul>
+	</center>
+</body>
+</html>
