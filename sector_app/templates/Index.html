@@ -10,31 +10,52 @@
 </head>
 <body>
 	<center>
-		<div class="row">
-		    <div class="col-md-4"> 
-		        <table class="table table-striped table-hover">
-			        <thead>
-			            <th>No</th>
-			            <th>sector_name</th>
-			            <th>debt_org</th>
-			            <th>debt_name</th>
-			            <th>debt_amount</th>
-			            <th>rating_date</th>
-			        </thead>
-			        <tbody>
-			        {% for result in Ratings %}
-				        <tr>
-				           <td>{{forloop.counter}}</td>
-				           <td>{{result.rating_debt.debt_org.org_sector.sector_name}}</td>
-				           <td>{{result.rating_debt.debt_org.org_name}}</td>
-				           <td><strong>{{result.rating_debt.debt_name}}</strong></td>
-				           <td>{{result.rating_debt.debt_amount}}</td>
-				           <td>{{result.rating_date}}</td>
-				        </tr>
-			        {% endfor %}
-			        </tbody>
-		        </table>
-		    <div>
+		<div class="container">
+			<div class="row" style="margin-top: 10vh;">
+			    <div class="col-md-4" style="text-align: left;">
+			    	<div class="row">
+				    	<label for="select_org">Organization: </label>
+				    	<select style="width: 100%;" name="secotor_org" id="select_org">
+				    		<option value="all">All</option>
+				    		<option value="org_name_1">org_name_1</option>
+				    		<option value="org_name_2">org_name_2</option>
+				    	</select>
+					</div>
+
+			    	<div class="row" style="margin-top: 1vh;">
+				    	<label for="select_sector">Sector: </label>
+				    	<select style="width: 100%;" id="select_sector">
+				    		<option value="all">All</option>
+				    		<option value="sector_name_1">sector_name_1</option>
+				    		<option value="sector_name_2">sector_name_2</option>
+				    	</select>
+				    </div>
+			    </div>
+			    <div class="col-md-8"> 
+			        <table class="table table-striped table-hover">
+				        <thead>
+				            <th>No</th>
+				            <th>sector_name</th>
+				            <th>debt_org</th>
+				            <th>debt_name</th>
+				            <th>debt_amount</th>
+				            <th>rating_date</th>
+				        </thead>
+				        <tbody>
+				        {% for result in Ratings %}
+					        <tr>
+					           <td>{{forloop.counter}}</td>
+					           <td>{{result.rating_debt.debt_org.org_sector.sector_name}}</td>
+					           <td>{{result.rating_debt.debt_org.org_name}}</td>
+					           <td><strong>{{result.rating_debt.debt_name}}</strong></td>
+					           <td>{{result.rating_debt.debt_amount}}</td>
+					           <td>{{result.rating_date}}</td>
+					        </tr>
+				        {% endfor %}
+				        </tbody>
+			        </table>
+			    <div>
+			</div>
 		</div>
 	</center>
 </body>
