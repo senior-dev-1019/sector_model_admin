@@ -8,4 +8,5 @@ urlpatterns = [
     path('orgdashboard', views.orgdashboard),
     path('sectororgs/<int:sector_id>', views.sectororogs),
     path('sectororgs/<int:sector_id>/<str:org_name>', views.sectororogdebts),
+    path('importsector', views.importsector),
 ]

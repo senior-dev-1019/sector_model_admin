@@ -14,6 +14,21 @@ def listviewdisplaydata(request):
     return render(request, "Index.html", {'Ratings': results})
 
 def orgdashboard(request):
+    results = Sector.objects.all();
+    return render(request, "orgdashboard.html", {'Sectors': results})
+
+def sectororogs(request, sector_id):
+    results = Ratings.objects.filter( rating_debt__debt_org__org_sector__id=sector_id )
+    return render(request, "Index.html", {'Ratings': results})
+
+def sectororogdebts(request, sector_id, org_name):
+    print(org_name)
+    results = Ratings.objects.filter( rating_debt__debt_org__org_sector__id=sector_id ) \
+    .filter( rating_debt__debt_org__org_name__contains=org_name )
+    return render(request, "Index.html", {'Ratings': results})
+
+def importsector(request):
+    
     with open('D:/Django/import.txt', 'r') as fp:
         sectors = csv.reader(fp, delimiter='|')
         row = 0
@@ -33,16 +48,6 @@ def orgdashboard(request):
                 new_sector.save()
                 row = row + 1
         fp.close()
-
-    results = Sector.objects.all();
-    return render(request, "orgdashboard.html", {'Sectors': results})
-
-def sectororogs(request, sector_id):
     results = Ratings.objects.filter( rating_debt__debt_org__org_sector__id=sector_id )
     return render(request, "Index.html", {'Ratings': results})
-
-def sectororogdebts(request, sector_id, org_name):
-    print(org_name)
-    results = Ratings.objects.filter( rating_debt__debt_org__org_sector__id=sector_id ) \
-    .filter( rating_debt__debt_org__org_name__contains=org_name )
-    return render(request, "Index.html", {'Ratings': results})
+        
