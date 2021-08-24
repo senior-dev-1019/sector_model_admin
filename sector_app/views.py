@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
 from django.utils import timezone
+import csv
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -13,6 +14,26 @@ def listviewdisplaydata(request):
     return render(request, "Index.html", {'Ratings': results})
 
 def orgdashboard(request):
+    with open('D:/Django/import.txt', 'r') as fp:
+        sectors = csv.reader(fp, delimiter='|')
+        row = 0
+        for sector_csv in sectors:
+            if row==0:
+                headers = sector_csv
+                row = row + 1
+            else:
+                # create a dictionary of sector details
+                new_sector_details = {}
+                for i in range(len(headers)):
+                    new_sector_details[headers[i]] = sector_csv[i]
+                    
+                # create an instance of sector model
+                new_sector = Sector()
+                new_sector.__dict__.update(new_sector_details)
+                new_sector.save()
+                row = row + 1
+        fp.close()
+
     results = Sector.objects.all();
     return render(request, "orgdashboard.html", {'Sectors': results})
 

@@ -4,6 +4,7 @@ from django.db import models
 
 class Sector(models.Model):
     sector_name = models.CharField(max_length=64)
+    code = models.CharField(max_length=6, null=True)
 
 def _str_(self):
     return f"{self.sector_name}"
