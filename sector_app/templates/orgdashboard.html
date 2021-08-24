@@ -3,15 +3,63 @@
 <head>
 	<meta charset="utf-8">
 	<title>Org Dashboard</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
+<style type="text/css">
+	/* Remove default bullets */
+	ul, #myUL {
+	  list-style-type: none;
+	}
+
+	/* Remove margins and padding from the parent ul */
+	#myUL {
+	  margin-top: 1vh;
+	  padding: 0;
+	}
+
+	/* Style the caret/arrow */
+	.caret {
+	  font-weight: 900;
+	  font-family: "Font Awesome 5 Free";
+	  cursor: pointer;
+	  user-select: none; /* Prevent text selection */
+	}
+
+	/* Create the caret/arrow with a unicode, and style it */
+	.caret::before {
+	  content: "\f067";
+	  color: black;
+	  display: inline-block;
+	  margin-right: 6px;
+	}
+
+	/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+	.caret-down::before {
+	  content: "\f068";
+	  color: black;
+	  display: inline-block;
+	  margin-right: 6px;
+	}
+
+	/* Hide the nested list */
+	.nested {
+	  display: none;
+	}
+
+	/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+	.active {
+	  display: block;
+	}
+</style>
 <body>
-	<center>
-		<div class="container">
-			<div class="row" style="margin-top: 10vh;">
+	<div class="container">
+		<center style="margin-top: 5vh;">
+			<h1>Sectors</h1>
+			<!-- <div class="row" style="margin-top: 10vh;">
 			    <div class="col-md-4" style="text-align: left;">
 			    	<div class="row">
 				    	<label for="select_org">Sector Level: </label>
@@ -31,19 +79,71 @@
 				        <thead>
 				            <th>No</th>
 				            <th>Sectors</th>
+				            <th>Code</th>
 				        </thead>
 				        <tbody>
 				        {% for result in Sectors %}
 					        <tr>
 					           <td>{{forloop.counter}}</td>
 					           <td><a href="sectororgs/{{result.id}}">{{result.sector_name}}</a></td>
+					           <td>{{result.code}}</td>
 					        </tr>
 				        {% endfor %}
 				        </tbody>
 			        </table>
 			    <div>
-			</div>
-		</div>
-	</center>
+			</div> -->
+		</center>
+		<ul id="myUL">
+		  <li><span class="caret">Level 1</span>
+		    <ul class="nested">
+		        {% for result in Sectors.level_1 %}
+		      		<li><a href="sectororgs/{{result.id}}">{{result.sector_name}}</a></li>
+		        {% endfor %}
+		    </ul>
+		  </li>
+
+		  <li><span class="caret">Level 2</span>
+		    <ul class="nested">
+		        {% for result in Sectors.level_2 %}
+		      		<li><a href="sectororgs/{{result.id}}">{{result.sector_name}}</a></li>
+		        {% endfor %}
+		    </ul>
+		  </li>
+
+		  <li><span class="caret">Level 3</span>
+		    <ul class="nested">
+		        {% for result in Sectors.level_3 %}
+		      		<li><a href="sectororgs/{{result.id}}">{{result.sector_name}}</a></li>
+		        {% endfor %}
+		    </ul>
+		  </li>
+		  <li><span class="caret">Level 4</span>
+		    <ul class="nested">
+		        {% for result in Sectors.level_4 %}
+		      		<li><a href="sectororgs/{{result.id}}">{{result.sector_name}}</a></li>
+		        {% endfor %}
+		    </ul>
+		  </li>
+		  <li><span class="caret">Level 5</span>
+		    <ul class="nested">
+		        {% for result in Sectors.level_5 %}
+		      		<li><a href="sectororgs/{{result.id}}">{{result.sector_name}}</a></li>
+		        {% endfor %}
+		    </ul>
+		  </li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var toggler = document.getElementsByClassName("caret");
+		var i;
+
+		for (i = 0; i < toggler.length; i++) {
+		  toggler[i].addEventListener("click", function() {
+		    this.parentElement.querySelector(".nested").classList.toggle("active");
+		    this.classList.toggle("caret-down");
+		  });
+		}
+	</script>
 </body>
 </html>
