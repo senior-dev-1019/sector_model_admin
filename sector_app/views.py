@@ -34,7 +34,7 @@ def sectororogdebts(request, sector_id, org_name):
     return render(request, "Index.html", {'Ratings': results})
 
 def importsector(request):
-    with open('D:/Django/import.txt', 'r') as fp:
+    with open('./import.txt', 'r') as fp:
         sectors = csv.reader(fp, delimiter='|')
         row = 0
         for sector_csv in sectors:
